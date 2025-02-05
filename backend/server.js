@@ -33,10 +33,6 @@ const Todo=todoModel
 
 //CRUD, Create, Read, Update, Delete
 // Create a new ToDo
-app.use(express.json());
-app.use(cors());
-app.options('*', cors());
-
 app.post("/api/todos", cors() ,(req, res) => {
   console.log(req.body)
   try {
@@ -52,12 +48,17 @@ app.post("/api/todos", cors() ,(req, res) => {
 });
 
 // Read all ToDos
-app.get('/api/todos', async (req, res) => {
+app.get('/api/todos', cors() ,async (req, res) => {
   try {
-    const todos = await Todo.find();
-    //const cursor = db.collection('tasks').find({});
-    //res.json(cursor);
-    res.json(todos)
+    const todos = await Todo.find({});
+    //const cursor = db.collection('todos').find({taskToBeDone, completed});
+    console.log('Attempted to retrieve from MongoDB');
+    //cursor=cursor.toArray();
+    
+
+    //console.log(res.status(200).json(cursor, 200));
+    //res.status(200).json(cursor);
+    res.status(200).json(todos)
   } catch (err) {
     res.status(500).json({ error: 'Failed to retrieve ToDos' });
   }

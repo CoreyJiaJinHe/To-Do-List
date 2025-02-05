@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card=({todo:{task, status}})=>{
+const TaskCard=({todo:{task, status}})=>{
     return(
         <div className="todo-card">
 
@@ -17,4 +17,4 @@ const Card=({todo:{task, status}})=>{
 
 
 }
-export default Card;
+export default TaskCard;

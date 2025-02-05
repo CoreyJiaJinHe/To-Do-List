@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Spinner from'./components/Spinner.jsx'
 import axios from "axios";
-
+import TaskCard from './components/TaskCard.jsx'
 //const axios=require('axios/dist/browser/axios.cjs');
 
 
@@ -51,10 +51,10 @@ function App() {
   useEffect(()=>{
     if (!doOnce)
     {
-      greetHandShake();
+      //greetHandShake();
       setDoOnce(true);
+      fetchToDoList();
     }
-    //fetchToDoList();
   })
 
   const [val, setVal]=useState('')
@@ -66,8 +66,6 @@ function App() {
     console.log("Value was changed:" +insertTask)
 
     callBackEnd()
-    
-    //app.post('/api/todos', async (req, res) => {
   }
 
   //BULLSHIT CORS ISSUES. MIGRATE OVER TO AXIOS.
@@ -105,26 +103,32 @@ function App() {
     setIsChecked(event.target.checked);
   }
 
+  
+
   async function fetchToDoList(){
-    const requestOptions={
-      method:'GET',
-      headers:{'Content-Type':'application/json'}
-
-    };
-
-    setErrorMessage('');
-    setIsLoading(true);
     try{
-    fetch('http://localhost:8080/api/todos',requestOptions) //
-    .then(res=>(res.json()))
-    .then(todoList=>setToDoList(todoList||[]))
+      setIsLoading(true)
+      setErrorMessage('');
+      const response=await axios.get(`${API_URL}/todos`)
+      console.log(response)
+        if (response.statusText!="OK"){
+          throw new Error ('Failed to get');
+        }
+      if (response.Response==='False')
+        {
+          setErrorMessage(data.Error || 'Failed to connect');
+          return;
+        }
+      console.log("Tasks have been retrieved")
+      console.log(response.data)
+      setToDoList(response.data||[])
+
     }
     catch(error){
-      console.error(`Error fetching data: ${error}`);
-      setErrorMessage('Try again later.');
+      console.log(error)
     }
-    finally{
-      setIsLoading(false);
+    finally {
+      setIsLoading(false)
     }
   }
 
@@ -146,24 +150,16 @@ function App() {
 
               <button className="float-right border-solid border-black border-2 p-2 rounded-lg"onClick={click}>Add</button>
           </div>
-
-              
-        </div>
-
-
-        <div className="all-tasks">
-          (<ul>
+        <div className="all-tasks" class="mt-10">
+          <ul>
             {todoList.map((todo)=>(
-              <Card key={todo.task} task={todo.task} status={todo.status}/>
-
-              //<input type="checkbox" checked={isChecked} onChange={handleCheckBoxChange}/>
+              <TaskCard key={todo._id} todo={todo}/>
+              //const[todoList, setToDoList]=useState([]);
               
             ))}
-          </ul>)
+          </ul>
         </div>
-      
-      {data? data:"Loading..."}
-      
+        </div>
       </div>
     </main>
   )
