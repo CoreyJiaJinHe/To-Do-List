@@ -10,6 +10,9 @@ const app=express();
 const port = process.env.PORT || 8080;
 
 
+app.use(express.json());
+app.use(cors());
+app.options('*', cors());
 
 app.get("/api/hello-world",(req,res)=>{
   res.status(200).json({message: "hello world I am the back",status:200});
@@ -30,12 +33,17 @@ const Todo=todoModel
 
 //CRUD, Create, Read, Update, Delete
 // Create a new ToDo
-app.post("/api/todos", (req, res) => {
+app.use(express.json());
+app.use(cors());
+app.options('*', cors());
+
+app.post("/api/todos", cors() ,(req, res) => {
+  console.log(req.body)
   try {
-    const { text } = req.body;
-    const todo = new Todo({ text, completed: false });
+    const inputText = req.body.text;
+    const todo = new Todo({ taskToBeDone: inputText, completed: false });
     todo.save();
-    res.set('Access-Control-Allow-Origin', '*');
+    //res.set('Access-Control-Allow-Origin', '*');
     console.log('Attempted to save to MongoDB');
     res.status(201).json({message: "Successfully saved", status:200, todo});
   } catch (err) {
@@ -85,11 +93,6 @@ app.delete('/api/todos/:id', async (req, res) => {
 
 
 
-
-
-app.use(cors());
-app.use(express.json());
-app.options('*', cors());
 
 
 app.listen(port, ()=>{

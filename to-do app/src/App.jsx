@@ -2,6 +2,14 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Spinner from'./components/Spinner.jsx'
+import axios from "axios";
+
+//const axios=require('axios/dist/browser/axios.cjs');
+
+
+//This fixes INVALID_URL error with Axios
+const API_URL="http://localhost:8080/api";
+const api= axios.create({baseURL: API_URL});
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,29 +21,91 @@ function App() {
 
 
 
+  const [doOnce, setDoOnce]=useState(false);
 
-  const greetHandShake=async()=>{
+  async function greetHandShake(){
 
-    const requestOptions={
-      method:'GET',
-      headers:{'Content-Type':'application/json'}
-    };
-
-    fetch('http://localhost:8080/api/hello-world', requestOptions)
-    //.then (res=>console.log(res.message))
-    .then(res=>(res.json()))
-    .then(data=>setData(data.message))
-    .catch(err=>console.log(err));
-
-    console.log(data)
+      try{
+        setIsLoading(true);
+        const response= await axios.get(`${API_URL}/hello-world`);
+        const data= await response.data.message
+        console.log(response)
+        if (response.statusText!="OK"){
+          throw new Error ('Failed to connect');
+        }
+        if (response.Response==='False')
+        {
+          setErrorMessage(data.Error || 'Failed to retrieve message');
+          return;
+        }
+        console.log("The message is:" +data)
+      }
+      catch(error){
+        console.log(error)
+      }
+      finally {
+        setIsLoading(false)
+      }
     }
-
+  
   useEffect(()=>{
-    greetHandShake();
+    if (!doOnce)
+    {
+      greetHandShake();
+      setDoOnce(true);
+    }
     //fetchToDoList();
   })
 
-  const fetchToDoList=async()=>{
+  const [val, setVal]=useState('')
+  const [isChecked, setIsChecked]=useState(false)
+
+  const click=()=>{
+    setVal(val)
+    setInsertTask(val)
+    console.log("Value was changed:" +insertTask)
+
+    callBackEnd()
+    
+    //app.post('/api/todos', async (req, res) => {
+  }
+
+  //BULLSHIT CORS ISSUES. MIGRATE OVER TO AXIOS.
+  async function callBackEnd(){
+    try{
+      setIsLoading(true)
+      const response=await axios.post(`${API_URL}/todos`,{
+        headers:{'Content-Type':'application/json'},
+          text: `${insertTask}`
+        }
+      )
+      console.log(response)
+        if (response.statusText!="Created"){
+          throw new Error ('Failed to post');
+        }
+      if (response.Response==='False')
+        {
+          setErrorMessage(data.Error || 'Failed to connect');
+          return;
+        }
+      console.log("The task has been posted")
+    }
+    catch(error){
+      console.log(error)
+    }
+    finally {
+      setIsLoading(false)
+    }
+}
+  const change=event=>{
+    setVal(event.target.value)
+  }
+
+  const handleCheckBoxChange=(event)=>{
+    setIsChecked(event.target.checked);
+  }
+
+  async function fetchToDoList(){
     const requestOptions={
       method:'GET',
       headers:{'Content-Type':'application/json'}
@@ -58,43 +128,7 @@ function App() {
     }
   }
 
-  const [val, setVal]=useState('')
-  const [isChecked, setIsChecked]=useState(false)
 
-  const click=()=>{
-    setVal(val)
-    setInsertTask(val)
-    console.log("Value was changed:" +insertTask + val)
-
-    callBackEnd()
-    
-    //app.post('/api/todos', async (req, res) => {
-  }
-
-  //BULLSHIT CORS ISSUES. MIGRATE OVER TO AXIOS.
-  const callBackEnd=async()=>{
-    const requestOptions={
-      method:'POST',
-      mode: "cors",
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({insertTask})
-    };
-
-    fetch('https://localhost:8080/api/todos', requestOptions)
-    .then(res=>(res.json()))
-    .then (data => setData(data.message))
-    .catch(err=>console.log(err))
-    
-    console.log(data.message)
-  }
-
-  const change=event=>{
-    setVal(event.target.value)
-  }
-
-  const handleCheckBoxChange=(event)=>{
-    setIsChecked(event.target.checked);
-  }
 
 //DO CSS NEXT. LEARN TAILWIND CSS
   return (

@@ -2,7 +2,7 @@ const mongoose = require ('mongoose');
 
 const todoSchema = mongoose.Schema(
     {
-        text:{
+        taskToBeDone:{
             type: String,
             required: [true, 'Please add a text value'],
         },
