@@ -34,10 +34,9 @@ const Todo=todoModel
 //CRUD, Create, Read, Update, Delete
 // Create a new ToDo
 app.post("/api/todos", cors() ,(req, res) => {
-  console.log(req.body)
+  //console.log(req.body)
   try {
     const inputText = req.body.text;
-    
     const todo = new Todo({ taskToBeDone: inputText, completed: false });
     todo.save();
     //res.set('Access-Control-Allow-Origin', '*');
@@ -70,20 +69,26 @@ app.put('/api/todos/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { text, completed } = req.body;
-    const todo = await Todo.findByIdAndUpdate(id, { text, completed }, { new: true });
-    res.json(todo);
+    const todo = await Todo.findByIdAndUpdate(id, {completed: True }, { new: true });
+    
+    //const todo = await Todo.findByIdAndUpdate(id, { text, completed }, { new: true });
+    res.status(200).json(todo);
   } catch (err) {
     res.status(400).json({ error: 'Failed to update ToDo' });
   }
 });
 
 // Delete a ToDo
-app.delete('/api/todos/:id', async (req, res) => {
+app.delete('/api/todos/:id', cors(), async (req, res) => {
+  
   try {
     const { id } = req.params;
+    console.log("This is the id:"+id)
+    console.log("I have deleted object with "+id)
     await Todo.findByIdAndDelete(id);
     res.status(204).send();
   } catch (err) {
+    console.log("I have failed to delete object with "+id)
     res.status(400).json({ error: 'Failed to delete ToDo' });
   }
 });

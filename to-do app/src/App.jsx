@@ -1,9 +1,5 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Spinner from'./components/Spinner.jsx'
 import axios from "axios";
-import {useDebounce} from 'react-use';
 import TaskCard from './components/TaskCard.jsx'
 //const axios=require('axios/dist/browser/axios.cjs');
 
