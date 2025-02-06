@@ -33,4 +33,20 @@ export default App
       body: JSON.stringify({insertTask})
     };
 
+    setInsertTask(val)
 
+    const change=event=>{
+      setInsertTask(event.target.value)
+      console.log("Value was changed:" +event.target.value)
+      console.log("Insert Task Text:" +insertTask)
+    }
+  
+
+
+
+    Database Backend Code
+    if (inputText=="")
+      {
+        res.status(400).json({error:"No data was sent"});
+        return;
+      }

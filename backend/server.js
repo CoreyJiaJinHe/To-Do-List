@@ -37,6 +37,7 @@ app.post("/api/todos", cors() ,(req, res) => {
   console.log(req.body)
   try {
     const inputText = req.body.text;
+    
     const todo = new Todo({ taskToBeDone: inputText, completed: false });
     todo.save();
     //res.set('Access-Control-Allow-Origin', '*');
@@ -50,11 +51,11 @@ app.post("/api/todos", cors() ,(req, res) => {
 // Read all ToDos
 app.get('/api/todos', cors() ,async (req, res) => {
   try {
-    const todos = await Todo.find({});
+    const todos = await Todo.find({},);
     //const cursor = db.collection('todos').find({taskToBeDone, completed});
     console.log('Attempted to retrieve from MongoDB');
     //cursor=cursor.toArray();
-    
+    //console.log(todos)
 
     //console.log(res.status(200).json(cursor, 200));
     //res.status(200).json(cursor);

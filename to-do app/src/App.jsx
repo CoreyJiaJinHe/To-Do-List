@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Spinner from'./components/Spinner.jsx'
 import axios from "axios";
+import {useDebounce} from 'react-use';
 import TaskCard from './components/TaskCard.jsx'
 //const axios=require('axios/dist/browser/axios.cjs');
 
@@ -53,20 +54,10 @@ function App() {
     {
       //greetHandShake();
       setDoOnce(true);
+      //modifyToDoListImmutably()
       fetchToDoList();
     }
   })
-
-  const [val, setVal]=useState('')
-  const [isChecked, setIsChecked]=useState(false)
-
-  const click=()=>{
-    setVal(val)
-    setInsertTask(val)
-    console.log("Value was changed:" +insertTask)
-
-    callBackEnd()
-  }
 
   //BULLSHIT CORS ISSUES. MIGRATE OVER TO AXIOS.
   async function callBackEnd(){
@@ -95,22 +86,31 @@ function App() {
       setIsLoading(false)
     }
 }
-  const change=event=>{
-    setVal(event.target.value)
-  }
 
-  const handleCheckBoxChange=(event)=>{
-    setIsChecked(event.target.checked);
-  }
 
+// import {useReducer} from 'react';
+
+// const dataFetchReducer =(state)=>{
+//   return state
+// // }
+// {
+//   "key": "ctrl+/",         // whatever keybinding you want
+//   "command": "toggle-comments.toggleLineComments",
+//   "when": "editorTextFocus && editorLangId == javascriptreact"
+// }
   
-
+// function modifyToDoListImmutably(){
+//   setToDoList.setState({
+//     setToDoList:[toDoList.state,fetchToDoList()]
+//   })
+// }
+//CANT GET OUTPUT RIGHT
   async function fetchToDoList(){
     try{
       setIsLoading(true)
       setErrorMessage('');
       const response=await axios.get(`${API_URL}/todos`)
-      console.log(response)
+      //console.log(response)
         if (response.statusText!="OK"){
           throw new Error ('Failed to get');
         }
@@ -120,8 +120,18 @@ function App() {
           return;
         }
       console.log("Tasks have been retrieved")
-      console.log(response.data)
-      setToDoList(response.data||[])
+      const dataY=await response
+      const dataX=JSON.parse(JSON.stringify(dataY)).data
+      //console.log(dataX)
+      dataX.map(setToDoList)
+      //console.log(dataY[0].taskToBeDone)
+      setToDoList(await dataX)
+        
+      
+
+
+
+      //console.log(setToDoList)
 
     }
     catch(error){
@@ -133,6 +143,17 @@ function App() {
   }
 
 
+  const click=event=>{
+    setInsertTask(event.target.value)
+    console.log("Insert Task Text:" +insertTask)
+    callBackEnd()
+  }
+  
+    const handleCheckBoxChange=(event)=>{
+      setIsChecked(event.target.checked);
+    }
+  
+  const [isChecked, setIsChecked]=useState(false)
 
 //DO CSS NEXT. LEARN TAILWIND CSS
   return (
@@ -143,9 +164,9 @@ function App() {
         </div>
         <div className="inserts bg-white text-black m-2 w-25/100 justify-center mx-auto p-10 rounded-lg bg-light">
           <div className="col-span-2">
-              <input onChange={change} className="w-80/100 border-solid border-black border-2 p-2 rounded-lg" 
-              value={val}
+              <input onChange={(event)=>setInsertTask(event.target.value)} className="w-80/100 border-solid border-black border-2 p-2 rounded-lg" 
               type="text"
+              value={insertTask}
               placeholder="Add a new ToDo"/>
 
               <button className="float-right border-solid border-black border-2 p-2 rounded-lg"onClick={click}>Add</button>
