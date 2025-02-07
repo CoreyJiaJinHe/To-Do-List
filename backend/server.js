@@ -40,7 +40,7 @@ app.post("/api/todos", cors() ,(req, res) => {
     const todo = new Todo({ taskToBeDone: inputText, completed: false });
     todo.save();
     //res.set('Access-Control-Allow-Origin', '*');
-    console.log('Attempted to save to MongoDB');
+    console.log('Saved to MongoDB');
     res.status(201).json({message: "Successfully saved", status:200, todo});
   } catch (err) {
     res.status(400).json({ error: 'Failed to create ToDo' });
@@ -52,7 +52,7 @@ app.get('/api/todos', cors() ,async (req, res) => {
   try {
     const todos = await Todo.find({},);
     //const cursor = db.collection('todos').find({taskToBeDone, completed});
-    console.log('Attempted to retrieve from MongoDB');
+    console.log('Retrieved from MongoDB');
     //cursor=cursor.toArray();
     //console.log(todos)
 
@@ -65,12 +65,16 @@ app.get('/api/todos', cors() ,async (req, res) => {
 });
 
 // Update a ToDo
-app.put('/api/todos/:id', async (req, res) => {
+app.put('/api/todos/:id', cors(), async (req, res) => {
   try {
     const { id } = req.params;
-    const { text, completed } = req.body;
-    const todo = await Todo.findByIdAndUpdate(id, {completed: True }, { new: true });
-    
+    //console.log("This is the id:"+id);
+    //console.log(req);
+    const newStatus=req.body.completed;
+    //const { text, completed } = req.body;
+    //console.log(newStatus);
+    //console.log(Todo.findById(id));
+    const todo = await Todo.findByIdAndUpdate(id, {completed: newStatus });
     //const todo = await Todo.findByIdAndUpdate(id, { text, completed }, { new: true });
     res.status(200).json(todo);
   } catch (err) {
@@ -83,8 +87,8 @@ app.delete('/api/todos/:id', cors(), async (req, res) => {
   
   try {
     const { id } = req.params;
-    console.log("This is the id:"+id)
-    console.log("I have deleted object with "+id)
+    //console.log("This is the id:"+id);
+    console.log("I have deleted object with "+id);
     await Todo.findByIdAndDelete(id);
     res.status(204).send();
   } catch (err) {

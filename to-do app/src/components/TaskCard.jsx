@@ -32,6 +32,18 @@ const deleteTask = async (id)=>{
     }
 }
 
+//IMPLEMENT UPDATE TASK STATUS
+const handleChange=async(id, completed)=>{
+    try{
+        console.log("This is the ID:" +id)
+        const response=await axios.put(`${API_URL}/todos/${id}`, {completed: !completed})
+        console.log("Changed status")
+    }
+    catch(error){
+        console.log(error.message)
+    }
+}
+
 
 
 const TaskCard=({todo:{_id, taskToBeDone, completed}})=>{
@@ -41,9 +53,9 @@ const TaskCard=({todo:{_id, taskToBeDone, completed}})=>{
                 <h3>{taskToBeDone ? taskToBeDone:"Task failed to render"}</h3>
                 <div className="status">
                     <button className="float-right border-solid border-black border-2 p-2 rounded-lg" onClick={()=>deleteTask(_id)}>Remove</button>
-                    <p> Status: {completed ? completed:" Not finished"}</p>
+                    <p> Status: {completed ? "Finished":"Not finished"}</p>
                     <label>
-                        Completed?: <input type="checkbox" name="myCheckbox" defaultChecked={false} />
+                        Completed?: <input type="checkbox" name="myCheckbox" onChange={()=>handleChange(_id,completed)} defaultChecked={false} />
                     </label>
                     <label>
                         

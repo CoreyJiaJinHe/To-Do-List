@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from "axios";
 import TaskCard from './components/TaskCard.jsx'
+import {useDebounce} from 'react-use';
 //const axios=require('axios/dist/browser/axios.cjs');
 
 
@@ -44,7 +45,10 @@ function App() {
         setIsLoading(false)
       }
     }
-  
+  //IMPLEMENT DEBOUNCE TO REFRESH TASKS AFTER DELETE AND INSERTION
+
+
+
   useEffect(()=>{
     if (!doOnce)
     {
@@ -53,10 +57,12 @@ function App() {
       //modifyToDoListImmutably()
       fetchToDoList();
     }
-  })
+  },[])
 
   //BULLSHIT CORS ISSUES. MIGRATE OVER TO AXIOS.
+  //SUCCESS
   async function callBackEnd(){
+    console.log("Tasks refreshed");
     try{
       setIsLoading(true)
       const response=await axios.post(`${API_URL}/todos`,{
@@ -85,22 +91,7 @@ function App() {
 
 
 // import {useReducer} from 'react';
-
-// const dataFetchReducer =(state)=>{
-//   return state
-// // }
-// {
-//   "key": "ctrl+/",         // whatever keybinding you want
-//   "command": "toggle-comments.toggleLineComments",
-//   "when": "editorTextFocus && editorLangId == javascriptreact"
-// }
-  
-// function modifyToDoListImmutably(){
-//   setToDoList.setState({
-//     setToDoList:[toDoList.state,fetchToDoList()]
-//   })
-// }
-//CANT GET OUTPUT RIGHT
+//FIXED OUTPUT
   async function fetchToDoList(){
     try{
       setIsLoading(true)
@@ -122,11 +113,6 @@ function App() {
       dataX.map(setToDoList)
       //console.log(dataY[0].taskToBeDone)
       setToDoList(await dataX)
-        
-      
-
-
-
       //console.log(setToDoList)
 
     }
@@ -139,10 +125,10 @@ function App() {
   }
 
 
-  const click=event=>{
+  const btnClick=event=>{
     setInsertTask(event.target.value)
     console.log("Insert Task Text:" +insertTask)
-    callBackEnd()
+    callBackEnd().then(fetchToDoList())
   }
   
     const handleCheckBoxChange=(event)=>{
@@ -165,7 +151,7 @@ function App() {
               value={insertTask}
               placeholder="Add a new ToDo"/>
 
-              <button className="float-right border-solid border-black border-2 p-2 rounded-lg"onClick={click}>Add</button>
+              <button className="float-right border-solid border-black border-2 p-2 rounded-lg"onClick={btnClick}>Add</button>
           </div>
         <div className="all-tasks" class="mt-10">
           <ul>
