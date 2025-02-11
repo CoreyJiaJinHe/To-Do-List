@@ -16,35 +16,12 @@ function App() {
   const[todoList, setToDoList]=useState([]);
   const [insertTask,setInsertTask]=useState('');
   const[errorMessage,setErrorMessage]=useState('');
+  const[completedList, setCompletedList]=useState([]);
 
 
 
   const [doOnce, setDoOnce]=useState(false);
 
-  async function greetHandShake(){
-
-      try{
-        setIsLoading(true);
-        const response= await axios.get(`${API_URL}/hello-world`);
-        const data= await response.data.message
-        console.log(response)
-        if (response.statusText!="OK"){
-          throw new Error ('Failed to connect');
-        }
-        if (response.Response==='False')
-        {
-          setErrorMessage(data.Error || 'Failed to retrieve message');
-          return;
-        }
-        console.log("The message is:" +data)
-      }
-      catch(error){
-        console.log(error)
-      }
-      finally {
-        setIsLoading(false)
-      }
-    }
   //IMPLEMENT DEBOUNCE TO REFRESH TASKS AFTER DELETE AND INSERTION
 
 
@@ -86,6 +63,7 @@ function App() {
     }
     finally {
       setIsLoading(false)
+      fetchToDoList()
     }
 }
 
@@ -127,15 +105,21 @@ function App() {
 
   const btnClick=event=>{
     setInsertTask(event.target.value)
-    console.log("Insert Task Text:" +insertTask)
-    callBackEnd().then(fetchToDoList())
+    //console.log("Insert Task Text:" +insertTask)
+    callBackEnd()
   }
-  
-    const handleCheckBoxChange=(event)=>{
-      setIsChecked(event.target.checked);
-    }
-  
-  const [isChecked, setIsChecked]=useState(false)
+
+  const switchList=event=>{
+
+  }
+
+  useEffect(()=>{
+    //fetchToDoList();
+  },[todoList])
+
+  function refreshLists(e){
+    fetchToDoList();
+  }
 
 //DO CSS NEXT. LEARN TAILWIND CSS
   return (
@@ -144,7 +128,13 @@ function App() {
         <div class="flex items-stretch justify-center mx-auto mt-20 mb-20">
           <h2>To-Do List</h2>
         </div>
-        <div className="inserts bg-white text-black m-2 w-25/100 justify-center mx-auto p-10 rounded-lg bg-light">
+        <div className="inserts bg-white text-black m-2 w-25/100 justify-center mx-auto rounded-lg bg-light">
+        <div className="p-10">
+        <button className="float-left border-solid border-black border-2 p-2 rounded-lg" onClick={()=>switchList}>To-Do List</button>
+        <button className="float-right border-solid border-black border-2 p-2 rounded-lg" onClick={()=>switchList}>Completed List</button>
+
+        </div>
+        <div className="p-10">
           <div className="col-span-2">
               <input onChange={(event)=>setInsertTask(event.target.value)} className="w-80/100 border-solid border-black border-2 p-2 rounded-lg" 
               type="text"
@@ -156,11 +146,12 @@ function App() {
         <div className="all-tasks" class="mt-10">
           <ul>
             {todoList.map((todo)=>(
-              <TaskCard key={todo._id} todo={todo}/>
+              <TaskCard key={todo._id} todo={todo} refreshTasks={refreshLists} />
               //const[todoList, setToDoList]=useState([]);
               
             ))}
           </ul>
+        </div>
         </div>
         </div>
       </div>

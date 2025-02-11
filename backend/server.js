@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors=require('cors')
 const dotenv=require('dotenv');
 const todoModel=require('./models/todoModel')
+const finishedModel=require('./models/finishedModel')
 
 dotenv.config();
 
@@ -14,9 +15,6 @@ app.use(express.json());
 app.use(cors());
 app.options('*', cors());
 
-app.get("/api/hello-world",(req,res)=>{
-  res.status(200).json({message: "hello world I am the back",status:200});
-})
 //DO NOT FUCKING USE RETURN, IT BREAKS THINGS.
 
 
@@ -40,7 +38,7 @@ app.post("/api/todos", cors() ,(req, res) => {
     const todo = new Todo({ taskToBeDone: inputText, completed: false });
     todo.save();
     //res.set('Access-Control-Allow-Origin', '*');
-    console.log('Saved to MongoDB');
+    //console.log('Saved to MongoDB');
     res.status(201).json({message: "Successfully saved", status:200, todo});
   } catch (err) {
     res.status(400).json({ error: 'Failed to create ToDo' });
@@ -52,7 +50,7 @@ app.get('/api/todos', cors() ,async (req, res) => {
   try {
     const todos = await Todo.find({},);
     //const cursor = db.collection('todos').find({taskToBeDone, completed});
-    console.log('Retrieved from MongoDB');
+    //console.log('Retrieved from MongoDB');
     //cursor=cursor.toArray();
     //console.log(todos)
 
@@ -64,6 +62,8 @@ app.get('/api/todos', cors() ,async (req, res) => {
   }
 });
 
+
+const completed=finishedModel
 // Update a ToDo
 app.put('/api/todos/:id', cors(), async (req, res) => {
   try {
@@ -76,6 +76,19 @@ app.put('/api/todos/:id', cors(), async (req, res) => {
     //console.log(Todo.findById(id));
     const todo = await Todo.findByIdAndUpdate(id, {completed: newStatus });
     //const todo = await Todo.findByIdAndUpdate(id, { text, completed }, { new: true });
+    if (newStatus)
+    {
+      if (!completed.exists({taskToBeDone:todo.TaskToBeDone})){
+        const newEntry = new completed({taskToBeDone:todo.taskToBeDone, dateCompleted:Date()})
+        newEntry.save();
+        console.log("Saved to completed list")
+      }
+      else(
+        console.log("Finished Task already exists")
+      )
+    }
+
+
     res.status(200).json(todo);
   } catch (err) {
     res.status(400).json({ error: 'Failed to update ToDo' });

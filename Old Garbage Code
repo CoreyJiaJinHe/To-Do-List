@@ -50,3 +50,36 @@ export default App
         res.status(400).json({error:"No data was sent"});
         return;
       }
+
+
+
+
+      
+app.get("/api/hello-world",(req,res)=>{
+  res.status(200).json({message: "hello world I am the back",status:200});
+})
+
+  async function greetHandShake(){
+
+    try{
+      setIsLoading(true);
+      const response= await axios.get(`${API_URL}/hello-world`);
+      const data= await response.data.message
+      console.log(response)
+      if (response.statusText!="OK"){
+        throw new Error ('Failed to connect');
+      }
+      if (response.Response==='False')
+      {
+        setErrorMessage(data.Error || 'Failed to retrieve message');
+        return;
+      }
+      console.log("The message is:" +data)
+    }
+    catch(error){
+      console.log(error)
+    }
+    finally {
+      setIsLoading(false)
+    }
+  }
