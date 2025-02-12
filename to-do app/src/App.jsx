@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from "axios";
 import TaskCard from './components/TaskCard.jsx'
+import CompletedTaskCard from './components/CompletedTaskCard.jsx'
 import {useDebounce} from 'react-use';
 //const axios=require('axios/dist/browser/axios.cjs');
 
@@ -17,22 +18,18 @@ function App() {
   const [insertTask,setInsertTask]=useState('');
   const[errorMessage,setErrorMessage]=useState('');
   const[completedList, setCompletedList]=useState([]);
-
+  const [whichList, setWhichList]=useState(true);
 
 
   const [doOnce, setDoOnce]=useState(false);
 
   //IMPLEMENT DEBOUNCE TO REFRESH TASKS AFTER DELETE AND INSERTION
 
-
-
   useEffect(()=>{
     if (!doOnce)
     {
-      //greetHandShake();
       setDoOnce(true);
-      //modifyToDoListImmutably()
-      fetchToDoList();
+      refreshLists();
     }
   },[])
 
@@ -63,12 +60,10 @@ function App() {
     }
     finally {
       setIsLoading(false)
-      fetchToDoList()
+      refreshLists()
     }
 }
 
-
-// import {useReducer} from 'react';
 //FIXED OUTPUT
   async function fetchToDoList(){
     try{
@@ -84,7 +79,7 @@ function App() {
           setErrorMessage(data.Error || 'Failed to connect');
           return;
         }
-      console.log("Tasks have been retrieved")
+      //console.log("Tasks have been retrieved")
       const dataY=await response
       const dataX=JSON.parse(JSON.stringify(dataY)).data
       //console.log(dataX)
@@ -102,23 +97,72 @@ function App() {
     }
   }
 
-
   const btnClick=event=>{
     setInsertTask(event.target.value)
-    //console.log("Insert Task Text:" +insertTask)
     callBackEnd()
   }
 
-  const switchList=event=>{
-
+  async function fetchCompletedList(){
+    try{
+      setIsLoading(true)
+      setErrorMessage('');
+      const response=await axios.get(`${API_URL}/completed`)
+        if (response.statusText!="OK"){
+          throw new Error ('Failed to get');
+        }
+      if (response.Response==='False')
+        {
+          setErrorMessage(data.Error || 'Failed to connect');
+          return;
+        }
+      console.log("Tasks have been retrieved")
+      const dataY=await response
+      const dataX=JSON.parse(JSON.stringify(dataY)).data
+      dataX.map(setCompletedList)
+      setCompletedList(await dataX)
+    }
+    catch(error){
+      console.log(error)
+    }
+    finally {
+      setIsLoading(false)
+    }
   }
 
-  useEffect(()=>{
-    //fetchToDoList();
-  },[todoList])
+  const switchList=(buttonType)=>{
+    if (buttonType)
+    {
+      setWhichList(true);
+    }
+    else{
+      setWhichList(false);
+    }
+    getTaskCards()
+  }
 
+  const getTaskCards=()=>{
+    if (whichList)
+    {
+      const list=todoList.map((todo)=>(
+      <TaskCard key={todo._id} todo={todo} refreshTasks={refreshLists} />))
+      return <ul>{list}</ul>
+    }
+    else{
+      const list=completedList.map((complete)=>(
+        <CompletedTaskCard key={complete._id} completedTask={complete}/>)
+      )
+      return <ul>{list}</ul>
+    }
+  }
   function refreshLists(e){
     fetchToDoList();
+    fetchCompletedList()
+  }
+
+  function handleKeyPress(e){
+    if (e==='Enter'){
+      callBackEnd()
+    }
   }
 
 //DO CSS NEXT. LEARN TAILWIND CSS
@@ -130,27 +174,29 @@ function App() {
         </div>
         <div className="inserts bg-white text-black m-2 w-25/100 justify-center mx-auto rounded-lg bg-light">
         <div className="p-10">
-        <button className="float-left border-solid border-black border-2 p-2 rounded-lg" onClick={()=>switchList}>To-Do List</button>
-        <button className="float-right border-solid border-black border-2 p-2 rounded-lg" onClick={()=>switchList}>Completed List</button>
+        <button className="float-left border-solid border-black border-2 p-2 rounded-lg" onClick={()=>switchList(true)}>To-Do List</button>
+        <button className="float-right border-solid border-black border-2 p-2 rounded-lg" onClick={()=>switchList(false)}>Completed List</button>
 
         </div>
         <div className="p-10">
           <div className="col-span-2">
-              <input onChange={(event)=>setInsertTask(event.target.value)} className="w-80/100 border-solid border-black border-2 p-2 rounded-lg" 
+              <input className="w-80/100 border-solid border-black border-2 p-2 rounded-lg" 
+              onChange={(event)=>setInsertTask(event.target.value)} 
+              onKeyDown={(event)=>{
+                if (event.key=='Enter')
+                {
+                  setInsertTask(event.target.value);
+                  handleKeyPress(event.key);
+                }
+              }}
               type="text"
               value={insertTask}
               placeholder="Add a new ToDo"/>
 
               <button className="float-right border-solid border-black border-2 p-2 rounded-lg"onClick={btnClick}>Add</button>
           </div>
-        <div className="all-tasks" class="mt-10">
-          <ul>
-            {todoList.map((todo)=>(
-              <TaskCard key={todo._id} todo={todo} refreshTasks={refreshLists} />
-              //const[todoList, setToDoList]=useState([]);
-              
-            ))}
-          </ul>
+        <div className="all-tasks" class="mt-10 max-h-100 overflow-scroll overflow-x-hidden">
+          {getTaskCards()}
         </div>
         </div>
         </div>

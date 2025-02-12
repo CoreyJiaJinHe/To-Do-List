@@ -32,13 +32,10 @@ const Todo=todoModel
 //CRUD, Create, Read, Update, Delete
 // Create a new ToDo
 app.post("/api/todos", cors() ,(req, res) => {
-  //console.log(req.body)
   try {
     const inputText = req.body.text;
     const todo = new Todo({ taskToBeDone: inputText, completed: false });
     todo.save();
-    //res.set('Access-Control-Allow-Origin', '*');
-    //console.log('Saved to MongoDB');
     res.status(201).json({message: "Successfully saved", status:200, todo});
   } catch (err) {
     res.status(400).json({ error: 'Failed to create ToDo' });
@@ -49,16 +46,20 @@ app.post("/api/todos", cors() ,(req, res) => {
 app.get('/api/todos', cors() ,async (req, res) => {
   try {
     const todos = await Todo.find({},);
-    //const cursor = db.collection('todos').find({taskToBeDone, completed});
-    //console.log('Retrieved from MongoDB');
-    //cursor=cursor.toArray();
-    //console.log(todos)
-
-    //console.log(res.status(200).json(cursor, 200));
-    //res.status(200).json(cursor);
     res.status(200).json(todos)
   } catch (err) {
     res.status(500).json({ error: 'Failed to retrieve ToDos' });
+  }
+});
+
+
+
+app.get('/api/completed', cors() ,async (req, res) => {
+  try {
+    const completeTasks = await completed.find({},);
+    res.status(200).json(completeTasks)
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to retrieve completed' });
   }
 });
 
@@ -68,28 +69,17 @@ const completed=finishedModel
 app.put('/api/todos/:id', cors(), async (req, res) => {
   try {
     const { id } = req.params;
-    //console.log("This is the id:"+id);
-    //console.log(req);
     const newStatus=req.body.completed;
-    //const { text, completed } = req.body;
-    //console.log(newStatus);
-    //console.log(Todo.findById(id));
     const todo = await Todo.findByIdAndUpdate(id, {completed: newStatus });
-    //const todo = await Todo.findByIdAndUpdate(id, { text, completed }, { new: true });
     if (newStatus)
     {
-      if (!completed.exists({taskToBeDone:todo.TaskToBeDone})){
+      const result = await completed.findOne({taskToBeDone:todo.taskToBeDone}).select("_id").lean();
+      if (result==null){
         const newEntry = new completed({taskToBeDone:todo.taskToBeDone, dateCompleted:Date()})
-        newEntry.save();
-        console.log("Saved to completed list")
+          newEntry.save();
+          res.status(200).json(todo);
       }
-      else(
-        console.log("Finished Task already exists")
-      )
     }
-
-
-    res.status(200).json(todo);
   } catch (err) {
     res.status(400).json({ error: 'Failed to update ToDo' });
   }
@@ -100,12 +90,10 @@ app.delete('/api/todos/:id', cors(), async (req, res) => {
   
   try {
     const { id } = req.params;
-    //console.log("This is the id:"+id);
     console.log("I have deleted object with "+id);
     await Todo.findByIdAndDelete(id);
     res.status(204).send();
   } catch (err) {
-    console.log("I have failed to delete object with "+id)
     res.status(400).json({ error: 'Failed to delete ToDo' });
   }
 });
