@@ -5,6 +5,9 @@ import CompletedTaskCard from './components/CompletedTaskCard.jsx'
 import {useDebounce} from 'react-use';
 //const axios=require('axios/dist/browser/axios.cjs');
 
+//MERGED REACT FRONT END WITH BACKEND
+//REACT TODO LIST CAN BE ACCESS BY RUNNING NODE SERVER.JS
+//ACCESSED AT LOCALHOST:8080
 
 //This fixes INVALID_URL error with Axios
 const API_URL="http://localhost:8080/api";

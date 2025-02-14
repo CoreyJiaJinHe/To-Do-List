@@ -98,13 +98,11 @@ app.delete('/api/todos/:id', cors(), async (req, res) => {
   }
 });
 
+app.use(express.static('./public'));
 
-
-
-
-
-
-
+app.get('/',function(req,res,next){
+  res.render('index-CTaU7-Oy.js')
+})
 
 
 app.listen(port, ()=>{

@@ -7,6 +7,7 @@ import axios from 'axios'
 export default defineConfig({
   plugins: [react(),tailwindcss()],
   server: {
+    allowedHosts:["delicate-generally-gelding.ngrok-free.app"],
     proxy: {
       '/api': {
         target: "http://localhost:8080",
@@ -16,4 +17,5 @@ export default defineConfig({
       },
     },
   },
+  base:"/react/"
 })
