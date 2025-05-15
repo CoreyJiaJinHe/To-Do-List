@@ -1,3 +1,5 @@
+//To Run: node server.js in console
+
 const express=require("express");
 const mongoose = require('mongoose');
 const cors=require('cors')
@@ -100,11 +102,12 @@ app.delete('/api/todos/:id', cors(), async (req, res) => {
 
 app.use(express.static('./public'));
 
-app.get('/',function(req,res,next){
+app.get('/react',function(req,res,next){
+  console.log("React Frontend Deployed")
   res.render('index-CTaU7-Oy.js')
 })
 
 
 app.listen(port, ()=>{
-  console.log("Listening");
+  console.log("Listening. Connect using localhost:8080");
 })
