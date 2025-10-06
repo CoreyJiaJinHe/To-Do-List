@@ -21,6 +21,7 @@ function App() {
   const [completedList, setCompletedList] = useState([]);
   const [whichList, setWhichList] = useState(true);
 
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [doOnce, setDoOnce] = useState(false);
 

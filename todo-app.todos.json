@@ -1,0 +1,518 @@
+[{
+  "_id": {
+    "$oid": "67a62aff6bff2e69604a9367"
+  },
+  "taskToBeDone": "Commerce Website",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-07T15:47:11.789Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-07T15:47:11.789Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a62b706bff2e69604a936f"
+  },
+  "taskToBeDone": "Learn more TailWind CSS",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-07T15:49:04.860Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-12T16:48:41.496Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a62b926bff2e69604a9375"
+  },
+  "taskToBeDone": "Make Guild Wars 2 Inventory App",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-07T15:49:38.943Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-07T15:49:38.943Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a62bd36bff2e69604a9378"
+  },
+  "taskToBeDone": "Update my Github.io page to use React",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-07T15:50:43.105Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-07T15:50:43.105Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67acd5ddde547848fade4afc"
+  },
+  "taskToBeDone": "Make Discord RPG game",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-12T17:09:49.250Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-12T17:09:49.250Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ae290d6c2fd2d0d5370ac6"
+  },
+  "taskToBeDone": "Learn NGROK",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-13T17:17:01.465Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-13T17:17:01.465Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ae29376c2fd2d0d5370ad1"
+  },
+  "taskToBeDone": "Decouple To-Do List Functions",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-13T17:17:43.687Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-13T17:17:43.687Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ae29396c2fd2d0d5370ad5"
+  },
+  "taskToBeDone": " Optimize to Follow SingleResponsibilityPrinciple",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-13T17:17:45.266Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-13T17:17:45.266Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ae29496c2fd2d0d5370ad9"
+  },
+  "taskToBeDone": "Learn Containers",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-13T17:18:01.381Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-13T17:18:01.381Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ae29606c2fd2d0d5370add"
+  },
+  "taskToBeDone": "Modify React to work with Ngrok, move away from localhost",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-13T17:18:24.565Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-13T17:18:24.565Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ae297c6c2fd2d0d5370ae1"
+  },
+  "taskToBeDone": "Discord Cogs and Components",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-13T17:18:52.148Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-13T17:18:52.148Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67af6def754ae676b3e5600d"
+  },
+  "taskToBeDone": "Figure out how to host 3 things on one Ngrok Domain",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-14T16:23:11.762Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-14T16:23:11.762Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67b4b64087c90e6eed28f35c"
+  },
+  "taskToBeDone": "Discord Bot, Add Game Combat System",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-18T16:33:04.669Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-18T16:33:04.669Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67b4b65087c90e6eed28f364"
+  },
+  "taskToBeDone": "Discord Bot, Add Map Navigation via Nodes",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-18T16:33:20.796Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-18T16:33:20.796Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67b4b65687c90e6eed28f368"
+  },
+  "taskToBeDone": "Discord Bot, Add Equipment System",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-18T16:33:26.218Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-18T16:33:26.218Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67b4b66087c90e6eed28f36c"
+  },
+  "taskToBeDone": "Discord Bot, Add Miscallenous Skills (Life Skills)",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-18T16:33:36.253Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-18T16:33:36.253Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67b4b66e87c90e6eed28f370"
+  },
+  "taskToBeDone": "AI Learn Spacy/Pytorch, Integrate with Discord Bot",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-18T16:33:50.171Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-18T16:33:50.171Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67bddcff7f2d02b5df97c2ff"
+  },
+  "taskToBeDone": "Web novel scraper",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-25T15:08:47.199Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-19T18:26:31.930Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67bddd027f2d02b5df97c303"
+  },
+  "taskToBeDone": "Web novel library",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-02-25T15:08:50.240Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-25T15:08:50.240Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c5c63b2932b5337d5ab85b"
+  },
+  "taskToBeDone": "Refactor Code",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-03-03T15:09:47.026Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-03T15:09:47.026Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c5c6572932b5337d5ab85f"
+  },
+  "taskToBeDone": "Side Bar Navigation",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-03-03T15:10:15.695Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-03T15:10:15.695Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67cf00a5996c3c1021a8a919"
+  },
+  "taskToBeDone": "Dashboard",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-03-10T15:09:25.317Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T15:09:25.317Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67cf00ab996c3c1021a8a91d"
+  },
+  "taskToBeDone": "Weather Panel on Dashboard",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-03-10T15:09:31.105Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T15:09:31.105Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67cf00b6996c3c1021a8a921"
+  },
+  "taskToBeDone": "Latest News Panel, scrape from news sites",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-03-10T15:09:42.304Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T15:09:42.304Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67cf00bb996c3c1021a8a925"
+  },
+  "taskToBeDone": "To-Do List Panel",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-03-10T15:09:47.070Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T15:09:47.070Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67cf00c3996c3c1021a8a929"
+  },
+  "taskToBeDone": "Timezone Conversion",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-03-10T15:09:55.440Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T15:09:55.440Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67cf00cb996c3c1021a8a92d"
+  },
+  "taskToBeDone": "Web novel Scraper Panel",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-03-10T15:10:03.119Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T15:10:03.119Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67db0c32d9c435997e45f2e8"
+  },
+  "taskToBeDone": "Webnovel Scraper, File host",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-03-19T18:25:54.561Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-19T18:25:54.561Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67db0c45d9c435997e45f2fc"
+  },
+  "taskToBeDone": "Webnovel Scraper, Merge Versions",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-03-19T18:26:13.661Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-19T18:26:13.661Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68261a2f82cadad354300e04"
+  },
+  "taskToBeDone": "Webnovel Scraper: Add account creation",
+  "completed": true,
+  "createdAt": {
+    "$date": "2025-05-15T16:45:35.864Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-20T16:39:15.357Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68261a3d82cadad354300e0b"
+  },
+  "taskToBeDone": "Webnovel scraper: Add user saved books",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-05-15T16:45:49.628Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-15T16:45:49.628Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68261a4582cadad354300e0f"
+  },
+  "taskToBeDone": "Webnovel scraper: Finish webpages",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-05-15T16:45:57.070Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-15T16:45:57.070Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68261a4c82cadad354300e13"
+  },
+  "taskToBeDone": "Webnovel scraper: Saved books page",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-05-15T16:46:04.473Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-15T16:46:04.473Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68261a6282cadad354300e17"
+  },
+  "taskToBeDone": "Webnovel scraper: Migrate to refactored code",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-05-15T16:46:26.625Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-15T16:46:26.625Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68261a7982cadad354300e1b"
+  },
+  "taskToBeDone": "Webnovel scraper: Fix weird login page error when swapping states",
+  "completed": true,
+  "createdAt": {
+    "$date": "2025-05-15T16:46:49.874Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-20T16:39:08.349Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68261a8c82cadad354300e1f"
+  },
+  "taskToBeDone": "Webnovel scraper: Account backend",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-05-15T16:47:08.226Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-15T16:47:08.226Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682cb027b222082cdd15c512"
+  },
+  "taskToBeDone": "Developer Control Panel",
+  "completed": false,
+  "createdAt": {
+    "$date": "2025-05-20T16:39:03.142Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-20T16:39:03.142Z"
+  },
+  "__v": 0
+}]

@@ -17,5 +17,5 @@ export default defineConfig({
       },
     },
   },
-  base:"/react/"
+  base: "/", // Set the base path to root
 })

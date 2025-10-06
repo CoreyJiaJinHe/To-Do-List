@@ -20,14 +20,26 @@ app.options('*', cors());
 //DO NOT FUCKING USE RETURN, IT BREAKS THINGS.
 
 
-mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser:true, useUnifiedTopology:true})
-.then(()=>{
-  console.log('Connected to MongoDB');
-})
-.catch((err)=>{
-  console.error('Error connecting to MongoDB:',err);
-})
+//= mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser:true, useUnifiedTopology:true})
+// .then(()=>{
+//   console.log('Connected to MongoDB');
+// })
+// .catch((err)=>{
+//   console.error('Error connecting to MongoDB:',err);
+// })
 
+const connectWithRetry = () => {
+  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+      console.log('Connected to MongoDB');
+    })
+    .catch((err) => {
+      console.error('Error connecting to MongoDB, retrying in 5 seconds:', err.message);
+      setTimeout(connectWithRetry, 5000);
+    });
+};
+
+connectWithRetry();
 
 const Todo=todoModel
 
@@ -102,10 +114,10 @@ app.delete('/api/todos/:id', cors(), async (req, res) => {
 
 app.use(express.static('./public'));
 
-app.get('/react',function(req,res,next){
-  console.log("React Frontend Deployed")
-  res.render('index-CTaU7-Oy.js')
-})
+// app.get('/react',function(req,res,next){
+//   console.log("React Frontend Deployed")
+//   res.render('index-CTaU7-Oy.js')
+// })
 
 
 app.listen(port, ()=>{

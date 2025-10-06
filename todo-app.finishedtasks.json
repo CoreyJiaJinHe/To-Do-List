@@ -1,0 +1,180 @@
+[{
+  "_id": {
+    "$oid": "67acd085cb7edd3965b05a95"
+  },
+  "taskToBeDone": "New Tasks",
+  "dateCompleted": {
+    "$date": "2025-02-12T16:47:01.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67acd089cb7edd3965b05a9d"
+  },
+  "taskToBeDone": "Update Status Text when completion is changed",
+  "dateCompleted": {
+    "$date": "2025-02-12T16:47:05.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67acd08ccb7edd3965b05aa2"
+  },
+  "taskToBeDone": "Update list to include newest task",
+  "dateCompleted": {
+    "$date": "2025-02-12T16:47:08.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67acd08ecb7edd3965b05aa7"
+  },
+  "taskToBeDone": "Make Completed List of Tasks",
+  "dateCompleted": {
+    "$date": "2025-02-12T16:47:10.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67acd091cb7edd3965b05aad"
+  },
+  "taskToBeDone": "Real Time Deletion, Remove Task Card once deleted",
+  "dateCompleted": {
+    "$date": "2025-02-12T16:47:13.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67acd15fde547848fade4a38"
+  },
+  "taskToBeDone": "Switchable Interface",
+  "dateCompleted": {
+    "$date": "2025-02-12T16:50:39.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67acd2adde547848fade4a5b"
+  },
+  "taskToBeDone": "Scrollbar for Tasks so that I dont need to scroll entire page",
+  "dateCompleted": {
+    "$date": "2025-02-12T16:56:13.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67acd4dfde547848fade4ae0"
+  },
+  "taskToBeDone": "Make it so that Enter Key accesses the Button",
+  "dateCompleted": {
+    "$date": "2025-02-12T17:05:35.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67af75dad808588dedee0c66"
+  },
+  "taskToBeDone": "Merged React Frontend with Node.Js Backend",
+  "dateCompleted": {
+    "$date": "2025-02-14T16:56:58.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67bddcec7f2d02b5df97c2f5"
+  },
+  "taskToBeDone": "Discord Bot, Add !Gaslight",
+  "dateCompleted": {
+    "$date": "2025-02-25T15:08:28.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67bddcf17f2d02b5df97c2fb"
+  },
+  "taskToBeDone": "Discord Bot, Add Random Enemy Generator",
+  "dateCompleted": {
+    "$date": "2025-02-25T15:08:33.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67cf00de996c3c1021a8a933"
+  },
+  "taskToBeDone": "Command to save Channel as Bot Channel",
+  "dateCompleted": {
+    "$date": "2025-03-10T15:10:22.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67db0c3cd9c435997e45f2f2"
+  },
+  "taskToBeDone": "Webnovel Scraper Base Features",
+  "dateCompleted": {
+    "$date": "2025-03-19T18:26:04.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67db0c3dd9c435997e45f2f8"
+  },
+  "taskToBeDone": "Webnovel Scraper, Discord Interface",
+  "dateCompleted": {
+    "$date": "2025-03-19T18:26:05.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67db0c53d9c435997e45f30b"
+  },
+  "taskToBeDone": "Learn how to generate epubs",
+  "dateCompleted": {
+    "$date": "2025-03-19T18:26:27.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67db0c57d9c435997e45f314"
+  },
+  "taskToBeDone": "Web novel scraper",
+  "dateCompleted": {
+    "$date": "2025-03-19T18:26:31.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682cb02cb222082cdd15c518"
+  },
+  "taskToBeDone": "Webnovel scraper: Fix weird login page error when swapping states",
+  "dateCompleted": {
+    "$date": "2025-05-20T16:39:08.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "682cb033b222082cdd15c51e"
+  },
+  "taskToBeDone": "Webnovel Scraper: Add account creation",
+  "dateCompleted": {
+    "$date": "2025-05-20T16:39:15.000Z"
+  },
+  "__v": 0
+}]
