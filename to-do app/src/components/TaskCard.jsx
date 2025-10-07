@@ -39,6 +39,7 @@ const handleChange=async(id, completed, refreshTasks)=>{
         //console.log("This is the ID:" +id)
         //console.log(completed)
         const response=await axios.put(`${API_URL}/todos/${id}`, {completed: !completed})
+        console.log(response.data)
         //console.log("Changed status")
     }
     catch(error){

@@ -18,8 +18,8 @@ const connectWithRetry = async (uri, options) => {
 };
 
 // Connect to the local database
-const localDbUri = 'mongodb://host.docker.internal:27017/todo-app';
-const containerDbUri = 'mongodb://mongo:27017/todo-app';
+const localDbUri = process.env.LOCAL_DB_URI;
+const containerDbUri = process.env.CONTAINER_DB_URI;
 
 const localDbOptions = { 
   useNewUrlParser: true, 
@@ -58,17 +58,19 @@ const syncDatabases = async () => {
         (containerTodo) => containerTodo.taskToBeDone === localTodo.taskToBeDone
       );
       if (!existsInContainer) {
-        await ContainerTodo.create(localTodo.toObject());
+        const syncedRecord = await ContainerTodo.create(localTodo.toObject());
+        console.log(`Copied from local to container database: ${JSON.stringify(syncedRecord)}`);
       }
     }
 
-    // Find new tasks in the container database
+    // Find new tasks in the container database and sync to the local database
     for (const containerTodo of containerTodos) {
       const existsInLocal = localTodos.some(
         (localTodo) => localTodo.taskToBeDone === containerTodo.taskToBeDone
       );
       if (!existsInLocal) {
-        await LocalTodo.create(containerTodo.toObject());
+        const syncedRecord = await LocalTodo.create(containerTodo.toObject());
+        console.log(`Copied from container to local database: ${JSON.stringify(syncedRecord)}`);
       }
     }
 
