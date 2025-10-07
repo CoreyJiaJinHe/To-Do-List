@@ -17,6 +17,9 @@ const connectWithRetry = async (uri, options) => {
   }
 };
 
+const dotenv=require('dotenv');
+dotenv.config();
+
 // Connect to the local database
 const localDbUri = process.env.LOCAL_DB_URI;
 const containerDbUri = process.env.CONTAINER_DB_URI;
@@ -52,14 +55,19 @@ const syncDatabases = async () => {
     const localTodos = await LocalTodo.find({});
     const containerTodos = await ContainerTodo.find({});
 
-    // Find new tasks in the local database
+    const copiedToContainer = [];
+    const copiedToLocal = [];
+
+        
+    // Find new tasks in the local database and sync to the container database
     for (const localTodo of localTodos) {
       const existsInContainer = containerTodos.some(
         (containerTodo) => containerTodo.taskToBeDone === localTodo.taskToBeDone
       );
       if (!existsInContainer) {
-        const syncedRecord = await ContainerTodo.create(localTodo.toObject());
-        console.log(`Copied from local to container database: ${JSON.stringify(syncedRecord)}`);
+        await ContainerTodo.create(localTodo.toObject());
+        copiedToContainer.push(localTodo.taskToBeDone);
+        console.log(`Copied to container database: Task="${localTodo.taskToBeDone}", Completed=${localTodo.completed}`);
       }
     }
 
@@ -69,10 +77,17 @@ const syncDatabases = async () => {
         (localTodo) => localTodo.taskToBeDone === containerTodo.taskToBeDone
       );
       if (!existsInLocal) {
-        const syncedRecord = await LocalTodo.create(containerTodo.toObject());
-        console.log(`Copied from container to local database: ${JSON.stringify(syncedRecord)}`);
+        await LocalTodo.create(containerTodo.toObject());
+        copiedToLocal.push(containerTodo.taskToBeDone);
+        console.log(`Copied to local database: Task="${containerTodo.taskToBeDone}", Completed=${containerTodo.completed}`);
       }
     }
+
+
+    // Log a summary of the synchronization process
+    console.log('Synchronization Summary:');
+    console.log(`Tasks copied to container database: ${copiedToContainer.length > 0 ? copiedToContainer.join(', ') : 'None'}`);
+    console.log(`Tasks copied to local database: ${copiedToLocal.length > 0 ? copiedToLocal.join(', ') : 'None'}`);
 
     console.log('Databases synchronized successfully!');
     localDb.close();

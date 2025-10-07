@@ -27,7 +27,11 @@ app.options('*', cors());
 // .catch((err)=>{
 //   console.error('Error connecting to MongoDB:',err);
 // })
-
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  poolSize: 10, // Limit the number of connections in the pool
+};
 
 
 class ValidationError extends Error {
@@ -45,10 +49,8 @@ class DatabaseConnectionError extends Error {
 }
 
 
-
-
 const connectWithRetry = () => {
-  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, options})
     .then(() => {
       console.log('Connected to MongoDB');
       processQueue(); // Process the queue when MongoDB reconnects
@@ -169,7 +171,7 @@ app.post("/api/todos", cors(), async (req, res) => {
 // Read all ToDos
 app.get('/api/todos', cors() ,async (req, res) => {
   try {
-    const todos = await Todo.find({},);
+    const todos = await Todo.find({}, 'taskToBeDone completed').lean();
     res.status(200).json(todos)
   } catch (err) {
     res.status(500).json({ error: 'Failed to retrieve ToDos' });
@@ -180,7 +182,7 @@ app.get('/api/todos', cors() ,async (req, res) => {
 
 app.get('/api/completed', cors() ,async (req, res) => {
   try {
-    const completeTasks = await completed.find({},);
+    const completeTasks = await completed.find({}, 'taskToBeDone completed').lean();
     res.status(200).json(completeTasks)
   } catch (err) {
     res.status(500).json({ error: 'Failed to retrieve completed' });
@@ -214,7 +216,10 @@ app.put('/api/todos/:id', cors(), async (req, res) => {
       }
 
       // Check if the task already exists in the `finishedtasks` collection
-      const existingFinishedTask = await completed.findOne({ taskToBeDone: todo.taskToBeDone }).select('_id').lean();
+      const existingFinishedTask = await completed
+        .findOne({ taskToBeDone: todo.taskToBeDone })
+        .select('_id') // Only return the _id field
+        .lean(); // Use lean() for better performance
       if (existingFinishedTask == null) {
         // Create a new entry in the `finishedtasks` collection
         const newEntry = new completed({
@@ -286,8 +291,8 @@ app.delete('/api/todos/:id', cors(), async (req, res) => {
     ensureDatabaseConnection();
 
     // Perform the operation
-    const todo = await Todo.findByIdAndDelete(id);
-    if (!todo) {
+    const result = await Todo.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
       return res.status(404).json({ error: 'ToDo not found' });
     }
     res.status(204).send();

@@ -33,6 +33,16 @@ services:
       timeout: 10s   # Allow up to 10 seconds for the check to complete
       retries: 3     # Retry up to 3 times before marking as unhealthy
     restart: always
+    command:
+      - mongod
+      - --setParameter
+      - "logComponentVerbosity={network: 1}"
+      # Reduce verbosity for network logs
+      - --wiredTigerCacheSizeGB
+      - "0.5"
+      - --setParameter
+      - "maxIncomingConnections=10" # Limit to 10 connections
+
 
 volumes:
   mongo-data:
