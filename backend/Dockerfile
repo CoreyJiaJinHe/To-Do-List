@@ -18,8 +18,9 @@ COPY . .
 
 # Expose the port the backend runs on
 EXPOSE 8080
+# Ensure the processLogs.js script is executable
+RUN chmod +x processLogs.js
 
 # Command to run the backend
-# Run the synchronization script and then start the backend
-CMD ["sh", "-c", "node syncDatabases.js && node server.js"]
+CMD ["sh", "/app/start.sh"]
 # Note: Ensure that the frontend is built and served correctly, possibly using a multi-stage build if needed.

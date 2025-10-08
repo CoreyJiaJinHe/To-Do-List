@@ -10,6 +10,9 @@ services:
     depends_on:
       - mongo
     restart: always
+    volumes:
+      - mongo-logs:/var/log/mongodb # Mount the MongoDB log volume
+    command: sh -c "node server.js & tail -f /var/log/mongodb/mongod.log | node processLogs.js"
 
   frontend:
     build:
@@ -27,6 +30,7 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+      - mongo-logs:/var/log/mongodb # Write logs to a shared volume
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 300s # Check every 5 minutes
@@ -36,13 +40,13 @@ services:
     command:
       - mongod
       - --setParameter
-      - "logComponentVerbosity={network: 1}"
-      # Reduce verbosity for network logs
+      - "logComponentVerbosity={network: 1}" # Reduce verbosity for network logs
       - --wiredTigerCacheSizeGB
       - "0.5"
-      - --setParameter
-      - "maxIncomingConnections=10" # Limit to 10 connections
-
+      - --logpath
+      - /var/log/mongodb/mongod.log # Write logs to a file
+      - --logappend # Append to the log file instead of overwriting
 
 volumes:
   mongo-data:
+  mongo-logs:

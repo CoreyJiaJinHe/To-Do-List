@@ -30,7 +30,7 @@ app.options('*', cors());
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  poolSize: 10, // Limit the number of connections in the pool
+  maxPoolSize: 10, // Limit the number of connections in the pool
 };
 
 
@@ -50,7 +50,11 @@ class DatabaseConnectionError extends Error {
 
 
 const connectWithRetry = () => {
-  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, options})
+  mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    maxPoolSize: 10, // Updated from `poolSize` to `maxPoolSize` for MongoDB 4.0+
+})
     .then(() => {
       console.log('Connected to MongoDB');
       processQueue(); // Process the queue when MongoDB reconnects
